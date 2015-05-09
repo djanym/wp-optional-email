@@ -1,4 +1,5 @@
-=== Optional Email ===
+п»ї=== Optional Email ===
+
 Requires at least: 3.0.0
 Tested up to: 4.9
 
@@ -7,7 +8,7 @@ Makes email field optional (not mandatory) on the registration page, profile pag
 Also will add a password field on the registration page.
 
 Plugin support (English) [ZamZamLab - Optional Email Plugin](http://zamzamlab.com/optional-email-plugin/ "ZamZamLab - Optional Email Plugin")
-And in Russian [Необязательный емайл](http://lab.ixblogs.com/optional-email-plugin/ "Optional Email Plugin").
+And in Russian [РќРµРѕР±СЏР·Р°С‚РµР»СЊРЅС‹Р№ РµРјР°Р№Р»](http://lab.ixblogs.com/optional-email-plugin/ "Optional Email Plugin").
 
 == Installation ==
 
