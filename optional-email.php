@@ -16,27 +16,28 @@ function oe_load_textdomain() {
 }
 add_filter( 'plugins_loaded', 'oe_load_textdomain', 10 );
 
-/*
-Used for old versions @before 3.0.0
-*/
-add_filter( 'comment_form_default_fields', 'oe_comment_form' );
+/**
+ * Used for old versions @before 3.0.0
+ */
 function oe_comment_form( $fields ) {
     unset( $fields['email'] );
 
     return $fields;
 }
+add_filter( 'comment_form_default_fields', 'oe_comment_form' );
 
-/*
- * Update profile page form
- * Removes empty email error
-*/
-add_filter( 'user_profile_update_errors', 'oe_profile_update_errors' );
+/**
+ * Update profile page form.
+ * Removes empty email error.
+ */
 function oe_profile_update_errors( $errors ) {
     unset( $errors->errors['empty_email'] );
 }
+add_filter( 'user_profile_update_errors', 'oe_profile_update_errors' );
 
-// Skip random password if a password was entered in a form
-add_filter( 'random_password', 'oe_reg_password' );
+/**
+ * Skips random password value if a password was entered in a form
+ */
 function oe_reg_password( $password ) {
     $pass = filter_input( INPUT_POST, 'user_pass' );
     if ( ! empty( $pass ) ) {
@@ -45,6 +46,7 @@ function oe_reg_password( $password ) {
 
     return $password;
 }
+add_filter( 'random_password', 'oe_reg_password' );
 
 /**
  * Fields validation for register form
@@ -74,11 +76,10 @@ function oe_registration_errors( $errors ) {
 }
 add_filter( 'registration_errors', 'oe_registration_errors' );
 
-/*
+/**
  * MU signup form & MU Admin add new user form
  * Fields validation
-*/
-add_filter( 'wpmu_validate_user_signup', 'oe_mu_signup_validate' );
+ */
 function oe_mu_signup_validate( $results ) {
     // Skip if admin creates a new user
     if ( is_admin() ) {
@@ -109,12 +110,12 @@ function oe_mu_signup_validate( $results ) {
 
     return $results;
 }
+add_filter( 'wpmu_validate_user_signup', 'oe_mu_signup_validate' );
 
-/*
+/**
  * Register form front-end
  * Adds password fields
-*/
-add_action( 'register_form', 'oe_regform_changes', 1 );
+ */
 function oe_regform_changes() {
     $user_pass  = filter_input( INPUT_POST, 'user_pass' );
     $user_pass2 = filter_input( INPUT_POST, 'user_pass2' );
@@ -131,12 +132,15 @@ function oe_regform_changes() {
     </p>
     <?php
 }
+add_action( 'register_form', 'oe_regform_changes', 1 );
 
-/*
- * Multisite register form front-end
- * Adds password fields
-*/
-add_action( 'signup_extra_fields', 'oe_mu_signup_extrafields', 1 );
+/**
+ * MU front-end register form.
+ * Adds password fields.
+ * Fires at the end of the new user account registration form.
+ *
+ * @param WP_Error $errors A WP_Error object containing 'user_name' or 'user_email' errors.
+ */
 function oe_mu_signup_extrafields( $errors ) {
     $errmsg     = $errors->get_error_message( 'user_pass' );
     $errmsg2    = $errors->get_error_message( 'user_pass2' );
@@ -156,9 +160,11 @@ function oe_mu_signup_extrafields( $errors ) {
     <input type="password" name="user_pass2" id="user_pass2" value="<?php echo esc_attr( stripslashes( $user_pass2 ) ); ?>" size="25" tabindex="20"/><br/>
     <?php
 }
+add_action( 'signup_extra_fields', 'oe_mu_signup_extrafields', 1 );
 
-// Admin javascript
-add_action( 'admin_footer', 'oe_admin_footer', 1 );
+/**
+ * Admin javascript
+ */
 function oe_admin_footer() {
     // Skip if multisite is enabled
     if ( is_multisite() ) {
@@ -171,12 +177,9 @@ function oe_admin_footer() {
     </script>
     <?php
 }
+add_action( 'admin_footer', 'oe_admin_footer', 1 );
 
-// For register page
-add_action( 'login_footer', 'oe_login_footer', 1 );
-// For MU signup page
-add_action( 'after_signup_form', 'oe_login_footer', 1 );
-/*
+/**
  * Front-end javascript
  */
 function oe_login_footer() {
@@ -205,11 +208,15 @@ function oe_login_footer() {
     </script>
     <?php
 }
+// For register page
+add_action( 'login_footer', 'oe_login_footer', 1 );
+// For MU signup page
+add_action( 'after_signup_form', 'oe_login_footer', 1 );
 
-add_action( 'login_enqueue_scripts', 'oe_login_scripts' );
 function oe_login_scripts() {
     wp_enqueue_script( 'jquery' );
 }
+add_action( 'login_enqueue_scripts', 'oe_login_scripts' );
 
 /**
  * Automatically logs in user to skip confirmation page.
