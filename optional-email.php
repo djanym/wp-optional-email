@@ -6,7 +6,17 @@ Version: 1.3.2
 Author: Nael Concescu
 Author URI: https://cv.nael.pro/
 Plugin URI: https://cv.nael.pro/
+Text Domain: optional-email
+Domain Path: /languages
 */
+
+/**
+ * Loads translation.
+ */
+function oe_load_textdomain() {
+    load_plugin_textdomain( 'optional-email', false, plugin_basename( __DIR__ ) . '/languages' );
+}
+add_filter( 'plugins_loaded', 'oe_load_textdomain', 10 );
 
 /*
 Used for old versions @before 3.0.0
@@ -38,11 +48,9 @@ function oe_reg_password( $password ) {
     return $password;
 }
 
-/*
- * Register form
- * Fields validation
-*/
-add_filter( 'registration_errors', 'oe_registration_errors' );
+/**
+ * Fields validation for register form
+ */
 function oe_registration_errors( $errors ) {
     // Removes empty email error
     unset( $errors->errors['empty_email'] );
@@ -51,21 +59,22 @@ function oe_registration_errors( $errors ) {
     $pass2 = filter_input( INPUT_POST, 'user_pass2' );
     // Check for blank password when adding a user.
     if ( empty( $pass1 ) ) {
-        $errors->add( 'empty_pass', __( '<strong>ERROR</strong>: Please enter a password.' ) );
+        $errors->add( 'pass', __( '<strong>Error</strong>: Please enter a password.', 'optional-email' ) );
     }
 
     // Check for "\" in password.
     if ( false !== strpos( wp_unslash( $pass1 ), "\\" ) ) {
-        $errors->add( 'incorrect_pass', __( '<strong>ERROR</strong>: Passwords may not contain the character "\\".' ) );
+        $errors->add( 'pass', __( '<strong>Error</strong>: Passwords may not contain the character "\\".', 'optional-email' ) );
     }
 
     // Checking the password has been typed twice the same.
     if ( ! empty( $pass1 ) && $pass1 != $pass2 ) {
-        $errors->add( 'incorrect_pass2', __( '<strong>ERROR</strong>: Please enter the same password in both password fields.' ) );
+        $errors->add( 'pass', __( '<strong>Error</strong>: Passwords don\'t match. Please enter the same password in both password fields.', 'optional-email' ) );
     }
 
     return $errors;
 }
+add_filter( 'registration_errors', 'oe_registration_errors' );
 
 /*
  * MU signup form & MU Admin add new user form
@@ -87,17 +96,17 @@ function oe_mu_signup_validate( $results ) {
 
     // Check for blank password when adding a user.
     if ( empty( $pass1 ) ) {
-        $results['errors']->add( 'user_pass', __( 'Please enter a password.' ) );
+        $results['errors']->add( 'user_pass', __( 'Please enter a password.', 'optional-email' ) );
     }
 
     // Check for "\" in password.
     if ( false !== strpos( wp_unslash( $pass1 ), "\\" ) ) {
-        $results['errors']->add( 'user_pass', __( 'Passwords may not contain the character "\\".' ) );
+        $results['errors']->add( 'user_pass', __( 'Passwords may not contain the character "\\".', 'optional-email' ) );
     }
 
     // Checking the password has been typed twice the same.
     if ( ! empty( $pass1 ) && $pass1 != $pass2 ) {
-        $results['errors']->add( 'user_pass2', __( 'Please enter the same password in both password fields.' ) );
+        $results['errors']->add( 'user_pass2', __( 'Please enter the same password in both password fields.', 'optional-email' ) );
     }
 
     return $results;
@@ -113,12 +122,12 @@ function oe_regform_changes() {
     $user_pass2 = filter_input( INPUT_POST, 'user_pass2' );
     ?>
     <p>
-        <label for="user_pass"><?php _e( 'Password' ) ?><br/>
+        <label for="user_pass"><?php _e( 'Password', 'optional-email' ) ?><br/>
             <input type="password" name="user_pass" id="user_pass" class="input" value="<?php echo esc_attr( stripslashes( $user_pass ) ); ?>" size="25" tabindex="20"/>
         </label>
     </p>
     <p>
-        <label for="user_pass2"><?php _e( 'Confirm Password' ) ?><br/>
+        <label for="user_pass2"><?php _e( 'Confirm Password', 'optional-email' ) ?><br/>
             <input type="password" name="user_pass2" id="user_pass2" class="input" value="<?php echo esc_attr( stripslashes( $user_pass2 ) ); ?>" size="25" tabindex="20"/>
         </label>
     </p>
@@ -136,13 +145,13 @@ function oe_mu_signup_extrafields( $errors ) {
     $user_pass  = filter_input( INPUT_POST, 'user_pass' );
     $user_pass2 = filter_input( INPUT_POST, 'user_pass2' );
     ?>
-    <label for="user_pass"><?php _e( 'Password' ) ?></label>
+    <label for="user_pass"><?php _e( 'Password', 'optional-email' ) ?></label>
     <?php if ( $errmsg ) : ?>
         <p class="error"><?php echo $errmsg ?></p>
     <?php endif; ?>
     <input type="password" name="user_pass" id="user_pass" value="<?php echo esc_attr( stripslashes( $user_pass ) ); ?>" size="25" tabindex="20"/><br/>
 
-    <label for="user_pass2"><?php _e( 'Confirm Password' ) ?></label>
+    <label for="user_pass2"><?php _e( 'Confirm Password', 'optional-email' ) ?></label>
     <?php if ( $errmsg2 ) : ?>
         <p class="error"><?php echo $errmsg2 ?></p>
     <?php endif; ?>
@@ -179,10 +188,12 @@ function oe_login_footer() {
         var text = jQuery( 'label[for=user_email]' ).html();
         if ( text && text.length ) {
             if ( text.includes( "<?php _e( 'Email&nbsp;Address:' ) ?>" ) ) {
-                text = text.replace( "<?php _e( 'Email&nbsp;Address:' ) ?>", "<?php echo __( 'Email&nbsp;Address:' ) . ' ' . __( '(optional)' ) ?>" );
+                text = text.replace( "<?php _e( 'Email&nbsp;Address:' ) ?>", "<?php echo __( 'Email Address: (optional)', 'optional-email' ) ?>" );
+            } else if ( text.includes( "<?php _e( 'EmailAddress:' ) ?>" ) ) {
+                text = text.replace( "<?php _e( 'EmailAddress:' ) ?>", "<?php echo __( 'Email Address: (optional)', 'optional-email' ) ?>" );
             } else {
-                text = text.replace( "<?php _e( 'Email' ) ?>", "<?php echo __( 'Email' ) . ' ' . __( '(optional)' ) ?>" );
-                text = text.replace( "<?php _e( 'E-mail' ) ?>", "<?php echo __( 'E-mail' ) . ' ' . __( '(optional)' ) ?>" );
+                text = text.replace( "<?php _e( 'Email' ) ?>", "<?php echo __( 'Email (optional)', 'optional-email' ) ?>" );
+                text = text.replace( "<?php _e( 'E-mail' ) ?>", "<?php echo __( 'E-mail (optional)', 'optional-email' ) ?>" );
             }
             jQuery( 'label[for=user_email]' ).html( text );
         }

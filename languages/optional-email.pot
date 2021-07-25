@@ -1,0 +1,141 @@
+# Blank WordPress Pot
+# Copyright 2014 ...
+# This file is distributed under the GNU General Public License v3 or later.
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: "
+"Optionl Email\n"
+"POT-Creation-Date: "
+"2021-07-26 00:29+0300\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Your "
+"Name <you@example.com>\n"
+"Language-Team: \n"
+"Report-Msgid-Bugs-To: "
+"Translator Name "
+"<translations@example."
+"com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/"
+"plain; charset=UTF-8\n"
+"Content-Transfer-"
+"Encoding: 8bit\n"
+"Plural-Forms: "
+"nplurals=2; plural=n != "
+"1;\n"
+"X-Textdomain-Support: "
+"yesX-Generator: Poedit "
+"1.6.4\n"
+"X-Poedit-SourceCharset: "
+"UTF-8\n"
+"X-Poedit-KeywordsList: "
+"__;_e;esc_html_e;"
+"esc_html_x:1,2c;"
+"esc_html__;esc_attr_e;"
+"esc_attr_x:1,2c;"
+"esc_attr__;_ex:1,2c;"
+"_nx:4c,1,2;"
+"_nx_noop:4c,1,2;_x:1,2c;"
+"_n:1,2;_n_noop:1,2;"
+"__ngettext:1,2;"
+"__ngettext_noop:1,2;_c,"
+"_nc:4c,1,2\n"
+"X-Poedit-Basepath: ..\n"
+"Language: en_US\n"
+"X-Generator: Poedit "
+"2.4.2\n"
+"X-Poedit-"
+"SearchPath-0: .\n"
+"X-Poedit-"
+"SearchPathExcluded-0: "
+"assets\n"
+"X-Poedit-"
+"SearchPathExcluded-1: "
+"languages\n"
+"X-Poedit-"
+"SearchPathExcluded-2: "
+"LICENSE\n"
+"X-Poedit-"
+"SearchPathExcluded-3: "
+"readme.txt\n"
+
+#: optional-email.php:71
+msgid ""
+"<strong>ERROR</strong>: "
+"Please enter a password."
+msgstr ""
+
+#: optional-email.php:76
+msgid ""
+"<strong>ERROR</strong>: "
+"Passwords may not "
+"contain the character "
+"\"\\\"."
+msgstr ""
+
+#: optional-email.php:81
+msgid ""
+"<strong>ERROR</strong>: "
+"Passwords don't match. "
+"Please enter the same "
+"password in both "
+"password fields."
+msgstr ""
+
+#: optional-email.php:108
+msgid ""
+"Please enter a password."
+msgstr ""
+
+#: optional-email.php:113
+msgid ""
+"Passwords may not "
+"contain the character "
+"\"\\\"."
+msgstr ""
+
+#: optional-email.php:118
+msgid ""
+"Please enter the same "
+"password in both "
+"password fields."
+msgstr ""
+
+#: optional-email.php:134
+#: optional-email.php:157
+msgid "Password"
+msgstr ""
+
+#: optional-email.php:139
+#: optional-email.php:163
+msgid "Confirm Password"
+msgstr ""
+
+#: optional-email.php:199
+#: optional-email.php:200
+msgid "Email&nbsp;Address:"
+msgstr ""
+
+#: optional-email.php:200
+#: optional-email.php:202
+#: optional-email.php:203
+msgid "(optional)"
+msgstr ""
+
+#: optional-email.php:202
+msgid "Email"
+msgstr ""
+
+#: optional-email.php:203
+msgid "E-mail"
+msgstr ""
+
+#: optional-email.php:211
+msgid ""
+"We send your "
+"registration email to "
+"this address. (Double-"
+"check your email address "
+"before continuing.)"
+msgstr ""
