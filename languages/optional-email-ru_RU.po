@@ -78,7 +78,7 @@ msgstr ""
 
 #: optional-email.php:195
 msgid "Email"
-msgstr ""
+msgstr "Емайл"
 
 #: optional-email.php:195
 msgid "Email (optional)"

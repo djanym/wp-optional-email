@@ -1,7 +1,7 @@
 === Optional Email ===
 Contributors: djanym
 Tags: email field, registration email, profile email, password registration
-Requires at least: 3.0.0
+Requires at least: 4.6
 Tested up to: 5.9
 Stable tag: 1.3.2
 License: GPLv2 or later
