@@ -211,19 +211,18 @@ function oe_login_scripts() {
     wp_enqueue_script( 'jquery' );
 }
 
-/*
- * Automatically login user to skip confirmation page
- * 
- * For MU
+/**
+ * Automatically logs in user to skip confirmation page.
+ * Fires before the Site Signup page is loaded.
+ * For MU.
  */
-add_action( 'before_signup_header', 'oe_signup', 1 );
 function oe_signup() {
     // Make a wp nonce to load page if there is an error
     $id                      = mt_rand();
     $_POST['signup_form_id'] = $id;
     $_POST['_signup_form']   = wp_create_nonce( 'signup_form_' . $id );
 
-    // Precheck fields. Just to create user if all is correct. Because it will throw headers error if skip it to native action position
+    // Pre-check fields. Just to create user if all is correct. Because it will throw headers error if skip it to native action position.
     $result     = validate_user_form();
     $user_name  = $result['user_name'];
     $user_email = $result['user_email'];
@@ -232,16 +231,16 @@ function oe_signup() {
 
     // Just return
     if ( $errors->get_error_code() ) {
-        return false;
+        return;
     }
 
     // Create user in db
     $user_id = wpmu_create_user( $user_name, $user_pass, $user_email );
     if ( ! $user_id ) {
-        return false;
+        return;
     }
 
-    // Login user
+    // Logs in user.
     $user                         = get_userdata( $user_id );
     $credentials['user_login']    = $user->user_login;
     $credentials['user_password'] = $user_pass;
@@ -251,25 +250,7 @@ function oe_signup() {
     wp_redirect( home_url() );
     die;
 }
-
-/*
-// Autologin created user
-add_action('user_register', 'oe_autologin');
-function oe_autologin($user_id){
-	$user_pass = filter_input(INPUT_POST, 'user_pass');
-	if( ! $user_pass )
-			return false;
-	
-	$user = get_userdata($user_id);
-	$credentials['user_login'] = $user->user_login;
-	$credentials['user_password'] = $user_pass;
-	wp_signon($credentials);
-	
-	echo $user_id; die;
-	// Redirect to home page after login
-	wp_redirect(home_url());
-	die;
-}*/
+add_action( 'before_signup_header', 'oe_signup', 1 );
 
 /**
  * Auto logs in created user.
