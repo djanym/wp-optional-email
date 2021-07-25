@@ -189,8 +189,8 @@ function oe_login_footer() {
         if ( text && text.length ) {
             if ( text.includes( "<?php _e( 'Email&nbsp;Address:' ) ?>" ) ) {
                 text = text.replace( "<?php _e( 'Email&nbsp;Address:' ) ?>", "<?php echo __( 'Email Address: (optional)', 'optional-email' ) ?>" );
-            } else if ( text.includes( "<?php _e( 'EmailAddress:' ) ?>" ) ) {
-                text = text.replace( "<?php _e( 'EmailAddress:' ) ?>", "<?php echo __( 'Email Address: (optional)', 'optional-email' ) ?>" );
+            } else if ( text.includes( "<?php _e( 'Email Address:' ) ?>" ) ) {
+                text = text.replace( "<?php _e( 'Email Address:' ) ?>", "<?php echo __( 'Email Address: (optional)', 'optional-email' ) ?>" );
             } else {
                 text = text.replace( "<?php _e( 'Email' ) ?>", "<?php echo __( 'Email (optional)', 'optional-email' ) ?>" );
                 text = text.replace( "<?php _e( 'E-mail' ) ?>", "<?php echo __( 'E-mail (optional)', 'optional-email' ) ?>" );
