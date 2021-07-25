@@ -2,12 +2,10 @@
 /*
 Plugin Name: Optional Email
 Description: Makes email optional field for registration
-Version: 1.3.3
+Version: 1.3.4
 Author: Nael Concescu
 Author URI: https://cv.nael.pro/
 Plugin URI: https://cv.nael.pro/
-Text Domain: optional-email
-Domain Path: /languages
 */
 
 /**
@@ -273,29 +271,34 @@ function oe_autologin($user_id){
 	die;
 }*/
 
-/*
- * After new user creation hook.
- * Changes some default settings for created user
- * Autologin created user
+/**
+ * Auto logs in created user.
+ * Changes some default settings for created user.
+ * Fires after a new user registration has been recorded.
+ *
+ * @param int $user_id ID of the newly registered user.
+ *
+ * @return void
  */
-// @since (4.5) or maybe earlier
-add_action( 'register_new_user', 'oe_register_new_user' );
 function oe_register_new_user( $user_id ) {
     global $wpdb;
     $user_pass = filter_input( INPUT_POST, 'user_pass' );
+
     if ( ! $user_pass ) {
-        return false;
+        return;
     }
+
     $wpdb->update( $wpdb->users, array( 'user_activation_key' => '' ), array( 'ID' => $user_id ) );
     delete_user_option( $user_id, 'default_password_nag', true );
 
     $user                         = get_userdata( $user_id );
     $credentials['user_login']    = $user->user_login;
     $credentials['user_password'] = $user_pass;
+    // Auto logs in created user.
     wp_signon( $credentials );
 
-    // Redirect to home page after login
+    // Redirect to home page after login.
     wp_redirect( home_url() );
     die;
 }
-
+add_action( 'register_new_user', 'oe_register_new_user' );
