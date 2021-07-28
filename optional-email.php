@@ -2,7 +2,7 @@
 /*
 Plugin Name: Optional Email
 Description: Makes email optional field for registration
-Version: 1.3.4
+Version: 1.3.5
 Author: Nael Concescu
 Author URI: https://cv.nael.pro/
 Plugin URI: https://cv.nael.pro/
@@ -188,13 +188,13 @@ function oe_login_footer() {
         jQuery( '#reg_passmail' ).hide();
         var text = jQuery( 'label[for=user_email]' ).html();
         if ( text && text.length ) {
-            if ( text.includes( "<?php _e( 'Email&nbsp;Address:' ) ?>" ) ) {
-                text = text.replace( "<?php _e( 'Email&nbsp;Address:' ) ?>", "<?php echo __( 'Email Address: (optional)', 'optional-email' ) ?>" );
-            } else if ( text.includes( "<?php _e( 'Email Address:' ) ?>" ) ) {
-                text = text.replace( "<?php _e( 'Email Address:' ) ?>", "<?php echo __( 'Email Address: (optional)', 'optional-email' ) ?>" );
+            if ( text.includes( "<?php _e( 'Email&nbsp;Address:', 'default' ) ?>" ) ) {
+                text = text.replace( "<?php _e( 'Email&nbsp;Address:', 'default' ) ?>", "<?php echo __( 'Email Address: (optional)', 'optional-email' ) ?>" );
+            } else if ( text.includes( "<?php _e( 'Email Address:', 'default' ) ?>" ) ) {
+                text = text.replace( "<?php _e( 'Email Address:', 'default' ) ?>", "<?php echo __( 'Email Address: (optional)', 'optional-email' ) ?>" );
             } else {
-                text = text.replace( "<?php _e( 'Email' ) ?>", "<?php echo __( 'Email (optional)', 'optional-email' ) ?>" );
-                text = text.replace( "<?php _e( 'E-mail' ) ?>", "<?php echo __( 'E-mail (optional)', 'optional-email' ) ?>" );
+                text = text.replace( "<?php _e( 'Email', 'default' ) ?>", "<?php echo __( 'Email (optional)', 'optional-email' ) ?>" );
+                text = text.replace( "<?php _e( 'E-mail', 'default' ) ?>", "<?php echo __( 'E-mail (optional)', 'optional-email' ) ?>" );
             }
             jQuery( 'label[for=user_email]' ).html( text );
         }
@@ -202,7 +202,7 @@ function oe_login_footer() {
         // Another text to replace
         text = jQuery( '#setupform' ).html();
         if ( text && text.length ) {
-            text = text.replace( "<?php esc_attr_e( 'We send your registration email to this address. (Double-check your email address before continuing.)' ) ?>", '' );
+            text = text.replace( "<?php esc_attr_e( 'We send your registration email to this address. (Double-check your email address before continuing.)', 'default' ) ?>", '' );
             jQuery( '#setupform' ).html( text );
         }
     </script>
