@@ -1,8 +1,7 @@
 {
     "parserOptions": {
         "ecmaVersion": 2020,
-        "jquery": true,
-        "Masonry": true
+        "jquery": true
     },
     "env": {
         "browser": true,
