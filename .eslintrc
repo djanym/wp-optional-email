@@ -1,0 +1,38 @@
+{
+    "parserOptions": {
+        "ecmaVersion": 2020,
+        "jquery": true,
+        "Masonry": true
+    },
+    "env": {
+        "browser": true,
+        "commonjs": true,
+        "es2020": true,
+        "jquery": true
+    },
+  "globals": {
+    "InfiniteScroll": "readonly",
+    "imagesLoaded": "readonly",
+    "Masonry": "readonly"
+  },
+    "extends": [
+        "plugin:@wordpress/eslint-plugin/recommended"
+    ],
+    "rules": {
+        "react/jsx-indent": [
+            "error",
+            4
+        ],
+        "no-unused-vars": ["warn", { "vars": "all", "args": "after-used", "ignoreRestSiblings": false }],
+        "jsx-a11y/img-redundant-alt": 0,
+        "indent": [
+            "error",
+            4
+        ],
+        "quotes": [
+            "error",
+            "single"
+        ],
+        "prettier/prettier": 0
+    }
+}

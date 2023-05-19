@@ -2,7 +2,7 @@
 /*
 Plugin Name: Optional Email
 Description: Makes email optional field for registration
-Version: 1.3.5
+Version: 1.3.6
 Author: Nael Concescu
 Author URI: https://cv.nael.pro/
 Plugin URI: https://cv.nael.pro/
@@ -172,8 +172,8 @@ function oe_admin_footer() {
     }
     ?>
     <script type="text/javascript">
-        jQuery( 'label[for="email"] > span.description' ).hide();
-        jQuery( '#createuser input[name=email]' ).closest( 'tr' ).removeClass( 'form-required' );
+        jQuery('label[for="email"] > span.description').hide();
+        jQuery('#createuser input[name=email]').closest('tr').removeClass('form-required');
     </script>
     <?php
 }
@@ -185,25 +185,25 @@ add_action( 'admin_footer', 'oe_admin_footer', 1 );
 function oe_login_footer() {
     ?>
     <script type="text/javascript">
-        jQuery( '#reg_passmail' ).hide();
-        var text = jQuery( 'label[for=user_email]' ).html();
-        if ( text && text.length ) {
-            if ( text.includes( "<?php _e( 'Email&nbsp;Address:', 'default' ) ?>" ) ) {
-                text = text.replace( "<?php _e( 'Email&nbsp;Address:', 'default' ) ?>", "<?php echo __( 'Email Address: (optional)', 'optional-email' ) ?>" );
-            } else if ( text.includes( "<?php _e( 'Email Address:', 'default' ) ?>" ) ) {
-                text = text.replace( "<?php _e( 'Email Address:', 'default' ) ?>", "<?php echo __( 'Email Address: (optional)', 'optional-email' ) ?>" );
+        jQuery('#reg_passmail').hide();
+        let text = jQuery('label[for=user_email]').html();
+        if (text && text.length) {
+            if (text.includes("<?php _e( 'Email&nbsp;Address:', 'default' ) ?>")) {
+                text = text.replace("<?php _e( 'Email&nbsp;Address:', 'default' ) ?>", "<?php echo __( 'Email Address: (optional)', 'optional-email' ) ?>");
+            } else if (text.includes("<?php _e( 'Email Address:', 'default' ) ?>")) {
+                text = text.replace("<?php _e( 'Email Address:', 'default' ) ?>", "<?php echo __( 'Email Address: (optional)', 'optional-email' ) ?>");
             } else {
-                text = text.replace( "<?php _e( 'Email', 'default' ) ?>", "<?php echo __( 'Email (optional)', 'optional-email' ) ?>" );
-                text = text.replace( "<?php _e( 'E-mail', 'default' ) ?>", "<?php echo __( 'E-mail (optional)', 'optional-email' ) ?>" );
+                text = text.replace("<?php _e( 'Email', 'default' ) ?>", "<?php echo __( 'Email (optional)', 'optional-email' ) ?>");
+                text = text.replace("<?php _e( 'E-mail', 'default' ) ?>", "<?php echo __( 'E-mail (optional)', 'optional-email' ) ?>");
             }
-            jQuery( 'label[for=user_email]' ).html( text );
+            jQuery('label[for=user_email]').html(text);
         }
 
         // Another text to replace
-        text = jQuery( '#setupform' ).html();
-        if ( text && text.length ) {
-            text = text.replace( "<?php esc_attr_e( 'We send your registration email to this address. (Double-check your email address before continuing.)', 'default' ) ?>", '' );
-            jQuery( '#setupform' ).html( text );
+        text = jQuery('#setupform').html();
+        if (text && text.length) {
+            text = text.replace("<?php esc_attr_e( 'We send your registration email to this address. (Double-check your email address before continuing.)', 'default' ) ?>", '');
+            jQuery('#setupform').html(text);
         }
     </script>
     <?php
