@@ -2,11 +2,13 @@
 /*
 Plugin Name: Optional Email
 Description: Makes email optional field for registration
-Version: 1.3.7
+Version: 1.3.8
 Author: Nael Concescu
 Author URI: https://cv.nael.pro/
 Plugin URI: https://cv.nael.pro/
 */
+
+require_once plugin_dir_path( __FILE__ ) . 'inc/woocommerce.php';
 
 /**
  * Loads translation.
@@ -185,33 +187,51 @@ add_action( 'admin_footer', 'oe_admin_footer', 1 );
 function oe_login_footer() {
     ?>
     <script type="text/javascript">
-        jQuery('#reg_passmail').hide();
-        let text = jQuery('label[for=user_email]').html();
-        if (text && text.length) {
-            if (text.includes("<?php _e( 'Email&nbsp;Address:', 'default' ) ?>")) {
-                text = text.replace("<?php _e( 'Email&nbsp;Address:', 'default' ) ?>", "<?php echo __( 'Email Address: (optional)', 'optional-email' ) ?>");
-            } else if (text.includes("<?php _e( 'Email Address:', 'default' ) ?>")) {
-                text = text.replace("<?php _e( 'Email Address:', 'default' ) ?>", "<?php echo __( 'Email Address: (optional)', 'optional-email' ) ?>");
-            } else {
-                text = text.replace("<?php _e( 'Email', 'default' ) ?>", "<?php echo __( 'Email (optional)', 'optional-email' ) ?>");
-                text = text.replace("<?php _e( 'E-mail', 'default' ) ?>", "<?php echo __( 'E-mail (optional)', 'optional-email' ) ?>");
-            }
-            jQuery('label[for=user_email]').html(text);
-        }
+        jQuery(document).ready(function ($) {
+            $('#reg_passmail').hide();
+            let email_fld = $('label[for=user_email], label[for=reg_email]');
+            let text = email_fld.html();
 
-        // Another text to replace
-        text = jQuery('#setupform').html();
-        if (text && text.length) {
-            text = text.replace("<?php esc_attr_e( 'We send your registration email to this address. (Double-check your email address before continuing.)', 'default' ) ?>", '');
-            jQuery('#setupform').html(text);
-        }
+            // Define an array of search and replace pairs.
+            let replacements = [
+                {search: '<?php echo esc_html( __( 'Email&nbsp;Address:', 'default' ) ); ?>', replace: '<?php echo esc_html( __( 'Email Address: (optional)', 'optional-email' ) ); ?>'},
+                {search: '<?php echo esc_html( __( 'Email Address:', 'default' ) ); ?>', replace: '<?php echo esc_html( __( 'Email Address: (optional)', 'optional-email' ) ); ?>'},
+                {search: '<?php echo esc_html( __( 'Email address', 'woocommerce' ) ); ?>', replace: '<?php echo esc_html( __( 'Email Address (optional)', 'optional-email' ) ); ?>'},
+                {search: '<?php echo esc_html( __( 'Email', 'default' ) ); ?>', replace: '<?php echo esc_html( __( 'Email (optional)', 'optional-email' ) ); ?>'},
+                {search: '<?php echo esc_html( __( 'E-mail', 'default' ) ); ?>', replace: '<?php echo esc_html( __( 'E-mail (optional)', 'optional-email' ) ); ?>'}
+            ];
+
+            if (text && text.length) {
+                // Iterate through the array and perform replacements
+                for (let i = 0; i < replacements.length; i++) {
+                    let pattern = new RegExp(replacements[i].search, 'gi');
+
+                    // Check if there are matches
+                    if (text.match(pattern)) {
+                        // Make the replacement
+                        text = text.replace(pattern, replacements[i].replace);
+                        // Break out of the loop since a replacement has been made
+                        break;
+                    }
+                }
+
+                // Replace email field text with the new optional.
+                email_fld.html(text);
+            }
+
+            // Another text to replace
+            text = jQuery('#setupform').html();
+            if (text && text.length) {
+                text = text.replace("<?php esc_attr_e( 'We send your registration email to this address. (Double-check your email address before continuing.)', 'default' ) ?>", '');
+                jQuery('#setupform').html(text);
+            }
+        });
     </script>
     <?php
 }
-// For register page
-add_action( 'login_footer', 'oe_login_footer', 1 );
-// For MU signup page
-add_action( 'after_signup_form', 'oe_login_footer', 1 );
+add_action( 'login_footer', 'oe_login_footer', 1 ); // For register page.
+add_action( 'after_signup_form', 'oe_login_footer', 1 ); // For MU signup page.
+add_action( 'woocommerce_register_form_end', 'oe_login_footer', 1 ); // Runs at the end of the WooCommerce register form.
 
 function oe_login_scripts() {
     wp_enqueue_script( 'jquery' );
