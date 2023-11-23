@@ -1,20 +1,21 @@
 <?php
 
 /**
- * Front-end javascript for WooCommerce register form.
+ * Front-end javascript for WooCommerce register and edit account forms.
  */
-function oe_wc_register_form() {
+function oe_wc_user_form() {
     ?>
     <script type="text/javascript">
         jQuery(document).ready(function ($) {
-            let $email_fld_label = $('label[for="reg_email"]');
+            let $email_fld_label = $('label[for="reg_email"], label[for="account_email"]');
             // Remove "*" symbol from the email field
             $email_fld_label.find($('.required')).remove();
         });
     </script>
     <?php
 }
-add_action( 'woocommerce_register_form_end', 'oe_wc_register_form', 1 ); // Runs at the end of the register form.
+add_action( 'woocommerce_register_form_end', 'oe_wc_user_form', 1 ); // Runs at the end of the register form.
+add_action( 'woocommerce_edit_account_form_end', 'oe_wc_user_form', 1 ); // Runs at the end of the edit account form.
 
 /**
  * Check if WooCommerce is installed and active, then update "generate username" option.
@@ -81,3 +82,17 @@ function oe_wc_new_user( $args ) {
     return $args;
 }
 add_filter( 'woocommerce_new_customer_data', 'oe_wc_new_user' );
+
+/**
+ * Removes email field from list of required fields after submitting the form.
+ *
+ * @param array $fields Array with required fields.
+ *
+ * @return array
+ */
+function oe_wc_account_required_fields( $fields ) {
+    unset( $fields['account_email'] );
+
+    return $fields;
+}
+add_filter( 'woocommerce_save_account_details_required_fields', 'oe_wc_account_required_fields' );
