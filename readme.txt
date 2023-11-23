@@ -2,8 +2,8 @@
 Contributors: djanym
 Tags: email field, registration email, profile email, password registration
 Requires at least: 4.6
-Tested up to: 6.3
-Stable tag: 1.3.7
+Tested up to: 6.9
+Stable tag: 1.3.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -15,6 +15,7 @@ Makes the email field optional (not mandatory) on the registration page, profile
 
 Also will add a password field on the registration page.
 Supports multisite.
+Supports WooCommerce.
 
 Plugin support [Optional Email Plugin](https://cv.nael.pro/ "Optional Email Plugin")
 On GitHub [WP Optional Email](https://github.com/djanym/wp-optional-email "Optional Email Plugin").
@@ -28,9 +29,15 @@ On GitHub [WP Optional Email](https://github.com/djanym/wp-optional-email "Optio
 
 1. Registration form
 2. Profile form
+3. WooCommerce registration form
+4. WooCommerce edit account form
 
 == Changelog ==
  
+= 1.3.9 =
+* Added support for the WooCommerce.
+* Tested with WordPress version 6.9
+
 = 1.3.7 =
 * Tested with WordPress version 6.2
 
