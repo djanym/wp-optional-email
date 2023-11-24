@@ -2,8 +2,8 @@
 Contributors: djanym
 Tags: email field, registration email, profile email, password registration
 Requires at least: 4.6
-Tested up to: 6.7
-Stable tag: 1.3.10
+Tested up to: 6.4
+Stable tag: 1.3.11
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -34,6 +34,12 @@ On GitHub [WP Optional Email](https://github.com/djanym/wp-optional-email "Optio
 
 == Changelog ==
  
+= 1.3.11 =
+* Tested with WordPress version 6.4
+
+= 1.3.10 =
+* Tested with WordPress version 6.7
+
 = 1.3.9 =
 * Added support for the WooCommerce.
 * Tested with WordPress version 6.9
