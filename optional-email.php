@@ -2,7 +2,7 @@
 /*
 Plugin Name: Optional Email
 Description: Makes email optional field for registration
-Version: 1.3.9
+Version: 1.3.10
 Author: Nael Concescu
 Author URI: https://cv.nael.pro/
 Plugin URI: https://cv.nael.pro/
